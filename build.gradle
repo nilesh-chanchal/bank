@@ -1,0 +1,60 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.2'
+	id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+	id 'java'
+	id 'war'
+	id 'eclipse'
+}
+
+group = 'com.management'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+//*********Sources**********
+sourceSets {
+	main {
+		java.srcDirs = ['src/main/java']
+		resources.srcDirs = ['src/main/resources']
+	}
+	test {
+		java.srcDirs = ['src/test/java','src/test-integration/java']
+		resources.srcDirs = ['src/test/resources','src/test-integration/resources']
+	}
+}
+
+
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+
+    // web dependecies
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    
+    // database dependencies
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	runtimeOnly 'org.postgresql:postgresql'
+	
+	// other dependencies
+	implementation 'org.projectlombok:lombok:1.18.24'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'	
+	annotationProcessor 'org.projectlombok:lombok:1.18.24'	
+	implementation 'org.slf4j:slf4j-api:1.7.36'
+	implementation 'javax.validation:validation-api:2.0.1.Final'
+	
+	//test dependencies
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
